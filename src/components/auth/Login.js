@@ -18,6 +18,10 @@ export default function LoginScreen({ onLogin }) {
   const [alertVisible, setAlertVisible] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
   const [alertType, setAlertType] = useState("success");
+  const [inputFocus, setInputFocus] = useState({
+    username: false,
+    password: false,
+  });
 
   const navigation = useNavigation();
   const buttonScale = new Animated.Value(1);
@@ -69,6 +73,14 @@ export default function LoginScreen({ onLogin }) {
     ]).start();
   };
 
+  const handleInputFocus = (inputName) => {
+    setInputFocus((prevState) => ({ ...prevState, [inputName]: true }));
+  };
+
+  const handleInputBlur = (inputName) => {
+    setInputFocus((prevState) => ({ ...prevState, [inputName]: false }));
+  };
+
   const showAlert = (message, type) => {
     setAlertMessage(message);
     setAlertType(type);
@@ -82,21 +94,25 @@ export default function LoginScreen({ onLogin }) {
   return (
     <LinearGradient colors={["#FF5733", "#FF8C00"]} style={styles.container}>
       <View style={styles.contentContainer}>
-        <Text style={styles.title}>Login</Text>
+        <Text style={styles.title}>Masuk</Text>
         <TextInput
-          style={styles.input}
+          style={[styles.input, inputFocus.username && styles.inputFocused]}
           placeholder="Username"
           placeholderTextColor="#aaa"
           value={username}
           onChangeText={setUsername}
+          onFocus={() => handleInputFocus("username")}
+          onBlur={() => handleInputBlur("username")}
         />
         <TextInput
-          style={styles.input}
+          style={[styles.input, inputFocus.password && styles.inputFocused]}
           placeholder="Password"
           placeholderTextColor="#aaa"
           secureTextEntry
           value={password}
           onChangeText={setPassword}
+          onFocus={() => handleInputFocus("password")}
+          onBlur={() => handleInputBlur("password")}
         />
         <Animated.View style={{ transform: [{ scale: buttonScale }] }}>
           <TouchableOpacity
@@ -106,16 +122,17 @@ export default function LoginScreen({ onLogin }) {
               handleLogin();
             }}
           >
-            <Text style={styles.buttonText}>Login</Text>
+            <Text style={styles.buttonText}>Masuk</Text>
           </TouchableOpacity>
         </Animated.View>
+
+        {/* Tombol untuk menuju halaman register */}
         <TouchableOpacity onPress={handleRegister}>
-          <Text style={styles.registerText}>
-            Don't have an account? Register
-          </Text>
+          <Text style={styles.registerText}>Belum punya akun? Daftar</Text>
         </TouchableOpacity>
       </View>
 
+      {/* Alert Modal */}
       <Modal
         animationType="slide"
         transparent={true}
@@ -167,15 +184,23 @@ const styles = StyleSheet.create({
   input: {
     borderWidth: 1,
     borderColor: "#ddd",
-    padding: 12,
-    borderRadius: 8,
+    padding: 15,
+    paddingLeft: 20,
+    paddingRight: 20,
+    borderRadius: 25,
     marginBottom: 15,
     fontSize: 16,
-    backgroundColor: "#f9f9f9",
+    backgroundColor: "#fff",
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 3 },
-    shadowOpacity: 0.1,
+    shadowOpacity: 0.2,
     shadowRadius: 5,
+    transition: "all 0.3s ease-in-out",
+  },
+  inputFocused: {
+    borderColor: "#FF5733",
+    backgroundColor: "#f5f5f5",
+    shadowOpacity: 0.5,
   },
   button: {
     backgroundColor: "#FF5733",

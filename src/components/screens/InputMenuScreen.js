@@ -185,12 +185,21 @@ export default function MenuList() {
         </View>
       ) : (
         <>
-          <TextInput
-            style={styles.searchBar}
-            placeholder="Search Menu"
-            value={searchQuery}
-            onChangeText={handleSearch}
-          />
+          <View style={styles.searchBarContainer}>
+            <TextInput
+              style={styles.searchBar}
+              placeholder="Search Menu"
+              value={searchQuery}
+              onChangeText={handleSearch}
+            />
+            <TouchableOpacity
+              style={styles.addButton}
+              onPress={() => setShowForm(true)}
+            >
+              <Icon name="add" size={35} color="white" />
+              <Text style={styles.addButtonText}>Add</Text>
+            </TouchableOpacity>
+          </View>
           <FlatList
             data={filteredMenus}
             keyExtractor={(item) => item._id}
@@ -233,12 +242,6 @@ export default function MenuList() {
               </View>
             )}
           />
-          <TouchableOpacity
-            style={styles.addButton}
-            onPress={() => setShowForm(true)}
-          >
-            <Icon name="add" size={30} color="white" />
-          </TouchableOpacity>
         </>
       )}
     </View>
@@ -298,13 +301,33 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 16,
   },
+  searchBarContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 20,
+  },
   searchBar: {
     borderWidth: 1,
     borderColor: "#d2b38c",
     borderRadius: 10,
     padding: 12,
-    marginBottom: 20,
+    flex: 1,
     backgroundColor: "#f8f1e1",
+  },
+  addButton: {
+    backgroundColor: "#f39c12",
+    flexDirection: "row",
+    alignItems: "center",
+    paddingVertical: 5,
+    paddingHorizontal: 10,
+    borderRadius: 10,
+    marginLeft: 10,
+  },
+  addButtonText: {
+    color: "white",
+    fontWeight: "bold",
+    fontSize: 16,
+    marginLeft: 5, // Space between the icon and text
   },
   menuItem: {
     flexDirection: "row",
@@ -314,11 +337,7 @@ const styles = StyleSheet.create({
     padding: 15,
     borderRadius: 10,
     marginBottom: 12,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 3 },
-    shadowOpacity: 0.2,
-    shadowRadius: 4.65,
-    elevation: 7,
+    borderWidth: 0.8,
   },
   menuName: {
     fontSize: 18,
@@ -334,21 +353,5 @@ const styles = StyleSheet.create({
   },
   icon: {
     marginLeft: 10,
-  },
-  addButton: {
-    backgroundColor: "#f39c12",
-    width: 60,
-    height: 60,
-    borderRadius: 30,
-    justifyContent: "center",
-    alignItems: "center",
-    position: "absolute",
-    bottom: 20,
-    right: 20,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.3,
-    shadowRadius: 4.65,
-    elevation: 8,
   },
 });

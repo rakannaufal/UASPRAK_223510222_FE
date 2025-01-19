@@ -6,10 +6,10 @@ import {
   ActivityIndicator,
   Alert,
   TouchableOpacity,
-  Image,
   ScrollView,
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import Icon from "react-native-vector-icons/Ionicons"; // Mengimpor Ionicons
 
 export default function ProfileScreen({ onLogout }) {
   const [userData, setUserData] = useState(null);
@@ -69,16 +69,23 @@ export default function ProfileScreen({ onLogout }) {
       <ScrollView contentContainerStyle={styles.scrollContent}>
         <View style={styles.profileCard}>
           <View style={styles.header}>
-            <Image
-              source={{
-                uri: userData.avatar || "https://via.placeholder.com/150",
-              }}
+            {/* Ganti gambar dengan ikon */}
+            <Icon
+              name="person-circle"
+              size={120} // Ukuran ikon avatar
+              color="#FF7F50" // Warna ikon
               style={styles.avatar}
             />
             <Text style={styles.name}>{userData.username}</Text>
-            <Text style={styles.email}>{userData.email}</Text>
           </View>
 
+          {/* Email di atas Dibuat Sejak */}
+          <View style={styles.detailsContainer}>
+            <Text style={styles.detailsLabel}>Email:</Text>
+            <Text style={styles.detailsValue}>{userData.email}</Text>
+          </View>
+
+          {/* Dibuat Sejak */}
           <View style={styles.detailsContainer}>
             <Text style={styles.detailsLabel}>Dibuat Sejak:</Text>
             <Text style={styles.detailsValue}>
@@ -123,9 +130,6 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   avatar: {
-    width: 120,
-    height: 120,
-    borderRadius: 60,
     marginBottom: 15,
     borderWidth: 4,
     borderColor: "#F4E1D2",

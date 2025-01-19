@@ -97,7 +97,9 @@ export default function RegisterScreen({}) {
   return (
     <LinearGradient colors={["#FF5733", "#FF8C00"]} style={styles.container}>
       <View style={styles.contentContainer}>
-        <Text style={styles.title}>Register</Text>
+        <Text style={styles.title}>Daftar</Text>
+
+        {/* Username Input */}
         <TextInput
           style={styles.input}
           placeholder="Username"
@@ -105,6 +107,8 @@ export default function RegisterScreen({}) {
           value={username}
           onChangeText={setUsername}
         />
+
+        {/* Email Input */}
         <TextInput
           style={styles.input}
           placeholder="Email"
@@ -112,6 +116,8 @@ export default function RegisterScreen({}) {
           value={email}
           onChangeText={setEmail}
         />
+
+        {/* Password Input */}
         <TextInput
           style={styles.input}
           placeholder="Password"
@@ -120,6 +126,8 @@ export default function RegisterScreen({}) {
           value={password}
           onChangeText={setPassword}
         />
+
+        {/* Register Button */}
         <Animated.View style={{ transform: [{ scale: buttonScale }] }}>
           <TouchableOpacity
             style={styles.button}
@@ -128,13 +136,13 @@ export default function RegisterScreen({}) {
               handleRegister();
             }}
           >
-            <Text style={styles.buttonText}>Register</Text>
+            <Text style={styles.buttonText}>Daftar</Text>
           </TouchableOpacity>
         </Animated.View>
+
+        {/* Navigate to Login Screen */}
         <TouchableOpacity onPress={handleLogin}>
-          <Text style={styles.registerText}>
-            Already have an account? Login
-          </Text>
+          <Text style={styles.registerText}>Sudah punya akun? Masuk</Text>
         </TouchableOpacity>
       </View>
 
@@ -183,7 +191,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 28,
     fontWeight: "bold",
-    color: "#333",
+    color: "#8B4513",
     textAlign: "center",
     marginBottom: 20,
   },
@@ -191,13 +199,13 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "#ddd",
     padding: 12,
-    borderRadius: 8,
+    borderRadius: 25,
     marginBottom: 15,
     fontSize: 16,
-    backgroundColor: "#f9f9f9",
+    backgroundColor: "#fff",
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 3 },
-    shadowOpacity: 0.1,
+    shadowOpacity: 0.2,
     shadowRadius: 5,
   },
   button: {

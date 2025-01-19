@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { View, StyleSheet, Alert } from "react-native";
 import { Card, Button, Title, IconButton, Text } from "react-native-paper";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import Icon from "react-native-vector-icons/Ionicons"; // Pastikan ini diimport untuk ikon
 
 const API_URL = "http://192.168.100.234:3000/api/menu";
 const ORDER_API_URL = "http://192.168.100.234:3000/api/orders";
@@ -127,8 +128,16 @@ const Beranda = ({ navigation }) => {
         {menuItems.length > 0 ? (
           menuItems.map((item, index) => (
             <Card key={item._id || index} style={styles.card}>
+              {/* Ikon makanan menggunakan Ionicons */}
+              <Icon
+                name="fast-food"
+                size={40}
+                color="#FF5733"
+                style={styles.icon}
+              />
               <View style={styles.cardTitleContainer}>
                 <Text style={styles.cardTitle}>{item.name}</Text>
+                <Text style={styles.cardPrice}>Rp {item.price}</Text>
               </View>
               <Card.Actions style={styles.actions}>
                 <IconButton
@@ -194,12 +203,15 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.3,
     shadowRadius: 5,
+    overflow: "hidden", // Make sure the image is clipped to the card
+  },
+  icon: {
+    alignSelf: "center",
+    marginVertical: 10,
   },
   cardTitleContainer: {
-    flexDirection: "row",
-    justifyContent: "center",
+    padding: 12,
     alignItems: "center",
-    padding: 20,
   },
   cardTitle: {
     fontWeight: "bold",
@@ -207,6 +219,12 @@ const styles = StyleSheet.create({
     color: "#D2691E",
     textAlign: "center",
     width: "100%",
+  },
+  cardPrice: {
+    fontSize: 14,
+    fontWeight: "bold",
+    color: "#FF5733",
+    marginTop: 5,
   },
   actions: {
     flexDirection: "row",
